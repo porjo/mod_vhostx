@@ -1,0 +1,63 @@
+
+attributetype ( 1.3.6.1.4.1.17533.1.1.0 NAME 'apacheServerName'
+        SUP name
+        DESC 'Apache ServerName'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256}
+        SINGLE-VALUE )
+        
+attributetype ( 1.3.6.1.4.1.17533.1.1.1 NAME 'apacheServerAlias'
+        SUP name
+        DESC 'Apache ServerAlias'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256} )
+        
+attributetype ( 1.3.6.1.4.1.17533.1.1.2 NAME 'apacheDocumentRoot'
+        DESC 'Apache DocumentRoot'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256}
+        SINGLE-VALUE )
+
+attributetype ( 1.3.6.1.4.1.17533.1.1.3 NAME 'apacheServerAdmin'
+        DESC 'Apache ServerAdmin'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256}
+        SINGLE-VALUE )
+
+attributetype ( 1.3.6.1.4.1.17533.1.1.7 NAME 'apacheVhostEnabled'
+        DESC 'Enable this virtualhost (used in search filter)'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256}
+        SINGLE-VALUE )
+
+attributetype ( 1.3.6.1.4.1.17533.1.1.8 NAME 'phpIncludePath'
+        DESC 'Set PHP include path'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256}
+        SINGLE-VALUE )
+
+attributetype ( 1.3.6.1.4.1.17533.1.1.9 NAME 'phpOptions'
+        DESC 'PHP ini key=value pairs'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256}
+        SINGLE-VALUE )
+
+attributetype ( 1.3.6.1.4.1.17533.1.1.10 NAME 'apacheChrootDir'
+        DESC 'chroot Apache process to this path'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256}
+        SINGLE-VALUE )
+
+objectclass ( 1.3.6.1.4.1.17533.1.2.1 NAME 'vhostx'
+        DESC 'mod_vhostx Apache module schema'
+        SUP 'top'
+        MUST ( apacheServerName $ apacheDocumentRoot )
+        MAY ( apacheServerAlias $ apacheServerAdmin $ apacheChrootDir $ phpOptions $ phpIncludePath $ apacheVhostEnabled ) )

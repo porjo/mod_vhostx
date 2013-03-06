@@ -1,0 +1,27 @@
+
+o Xavier Beaudouin
+  Developer of mod_vhs
+
+
+Original mod_vhs THANKS below:
+---------------------------------
+
+The developper wishes to thanks the following person :
+
+o Michael Link 
+  for the original work I took to make mod_vhs
+
+o Laurent Wacrenier 
+  for libhome software and lots of tools that
+  use this library
+
+o Nat Makarevitch
+  for the help he gave me when I am in stuck on
+  some special C problems.
+
+o Author of mod_vhost_ldap (Ondej Surý) that gave 
+  me some stuff to use mod_ldap on Apache 2.2.xx
+
+o Guillaume de Lafond for his help to merge some of patches
+  I got, and because of lack of time... I didn't had the time to 
+  merge that.
