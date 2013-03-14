@@ -45,8 +45,12 @@ Key | Values | Default | Description
 An example Apache config is as follows:
 
 ```apache
+# This needs to load after mod_php otherwise we get 'undefined symbol: zend_alter_ini_entry' 
+# LoadModule vhost_ldap_ng_module    modules/mod_vhost_ldap_ng.so
+LoadModule vhostx_module    modules/mod_vhostx.so
+
 <VirtualHost *:80>
- <IfModule vhx_module>
+ <IfModule vhostx_module>
    EnableVhx On
    vhx_WWWMode On
    vhx_LDAPUrl "ldap://127.0.0.1/ou=Vhosts,ou=Web,dc=foobar???(&(apacheVhostEnabled=yes)(objectClass=apacheConfig))"
