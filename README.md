@@ -6,7 +6,7 @@ An Apache module for configuring virtualhosts from LDAP backend.
 Features
 --------
 * Apache processes run as the user/group defined in LDAP. Any scripts run via mod_php also run as the user/group
-* Apache processes chrooted to path set from LDAP e.g. `homeDirectory` (optional)
+* Apache processes chrooted to path set from LDAP (optional)
 * PHP options can be set dynamically from LDAP at runtime (no Apache restart)
 * VirtualHosts can be added/removed/modified at runtime (no Apache restart)
 * minimal Apache config 
@@ -73,7 +73,7 @@ See [PHP](https://github.com/porjo/mod_vhostx/blob/master/PHP.md) documentation
 
 Troubleshooting
 ---------------
-Set Apache's log level to `debug` to see additional messages in `error.log`
+To see additional debug in `error.log`, compile with the `VH_DEBUG` flag (see Makefile), and set Apache's log level to `debug`.
 
 Credits
 --------
