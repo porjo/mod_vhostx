@@ -4,7 +4,7 @@ It is assumed you will know how to setup an LDAP server and import a new schema.
 
 Schema
 ------
-Using the supplied schema for `vhostx`, a typical virtualhost entry might look like this:
+Using the [supplied schema](https://github.com/porjo/mod_vhostx/blob/master/mod_vhostx.schema), a typical virtualhost entry might look like this:
 
 ```
 dn: cn=u1234,ou=Vhosts,ou=Web,dc=foobar
