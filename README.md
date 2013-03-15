@@ -70,6 +70,9 @@ PHP
 ----
 See [PHP](https://github.com/porjo/mod_vhostx/blob/master/PHP.md) documentation
 
+Logs
+----
+See [Logs](https://github.com/porjo/mod_vhostx/blob/master/LOGS.md) documentation
 
 Troubleshooting
 ---------------
