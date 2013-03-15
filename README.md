@@ -21,6 +21,16 @@ Requirements
 To compile the module from source requires the GNU build tools: `make` `gcc`. 
 The Apache `apxs` utility is also needed: on Redhat distros this can be found in the `httpd-devel` package
 
+Installation
+------------
+Install any of the optional components as required: `mod_php`, `mpm-itk` etc
+
+* Download and unpack the `mod_vhostx` zip file from Github
+* As root user, run `make` followed by `make install` (some modification of `Makefile` may be required depending on your environment).
+* Update Apache `httpd.conf` configuration as described below
+* Restart Apache
+
+
 Configuration
 -------------
 The following configuration directives can be used inside `<Virtualhost>` `</Virtualhost>` context
@@ -60,6 +70,8 @@ LoadModule vhostx_module    modules/mod_vhostx.so
  </IfModule>
 </VirtualHost>
 ```
+
+
  
 LDAP
 ----
