@@ -25,7 +25,7 @@ Installation
 ------------
 Install any of the optional components as required: `mod_php`, `mpm-itk` etc
 
-* Download and unpack the `mod_vhostx` zip file from Github
+* Download and unpack the mod_vhostx zip file from Github
 * As root user, run `make` followed by `make install` (some modification of `Makefile` may be required depending on your environment).
 * Update Apache `httpd.conf` configuration as described below
 * Restart Apache
@@ -33,7 +33,7 @@ Install any of the optional components as required: `mod_php`, `mpm-itk` etc
 
 Configuration
 -------------
-The following configuration directives can be used inside `<Virtualhost>` `</Virtualhost>` context
+The following configuration directives can be used inside `<Virtualhost />` context
 
 Key | Values | Default | Description
 :--- | :---: | :---: | :---
