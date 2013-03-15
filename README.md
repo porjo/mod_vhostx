@@ -46,7 +46,6 @@ An example Apache config is as follows:
 
 ```apache
 # This needs to load after mod_php otherwise we get 'undefined symbol: zend_alter_ini_entry' 
-# LoadModule vhost_ldap_ng_module    modules/mod_vhost_ldap_ng.so
 LoadModule vhostx_module    modules/mod_vhostx.so
 
 <VirtualHost *:80>
