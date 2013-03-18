@@ -58,6 +58,7 @@
 #include <sys/mman.h>
 #include <fcntl.h>
 #include <regex.h>
+#include <pwd.h>
 
 #ifdef HAVE_MOD_PHP_SUPPORT
 #  include <zend.h>

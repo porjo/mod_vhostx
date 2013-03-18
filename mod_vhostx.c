@@ -54,12 +54,11 @@
 
 #include "mod_vhostx.h"
 
-#define FILTER_LENGTH MAX_STRING_LEN
-
 static char * trimwhitespace(char *str);
 static int getldaphome(request_rec *r, vhx_config_rec *vhr, const char *hostname, vhx_request_t *reqc);
 
-char *ldap_attributes[] = { "apacheServerName", "apacheDocumentRoot", "apacheServerAdmin","phpOptions","phpIncludePath","apacheChrootDir","homeDirectory","uidNumber","gidNumber" };
+// Why does this need 9 elements? Any less and we get a segfault!
+char * ldap_attributes[] = { "apacheServerName", "apacheDocumentRoot", "apacheServerAdmin","phpOptions","apacheChrootDir","homeDirectory","uidNumber","gidNumber","blah" };
 
 static APR_OPTIONAL_FN_TYPE(uldap_connection_close)  *util_ldap_connection_close;
 static APR_OPTIONAL_FN_TYPE(uldap_connection_find)   *util_ldap_connection_find;
@@ -713,7 +712,7 @@ static int getldaphome(request_rec *r, vhx_config_rec *vhr, const char *hostname
 {
 	/* LDAP associated variable and stuff */
 	const char 		**vals = NULL;
-	char 			filtbuf[FILTER_LENGTH];
+	char 			*filtbuf = NULL;
 	int 			result = 0;
 	const char 		*dn = NULL;
 	util_ldap_connection_t 	*ldc = NULL;
@@ -741,11 +740,15 @@ start_over:
 		return DECLINED;
 	}
 
+	/*
 	if (vhr->ldap_set_filter) {
 		apr_snprintf(filtbuf, FILTER_LENGTH, "%s=%s", vhr->ldap_filter, hostname);
 	} else {
 		apr_snprintf(filtbuf, FILTER_LENGTH, "(&(%s)(|(apacheServerName=%s)(apacheServerAlias=%s)))", vhr->ldap_filter, hostname, hostname);
-	}
+	}*/
+
+	filtbuf = apr_psprintf(r->pool, "(&(%s)(|(apacheServerName=%s)(apacheServerAlias=%s)))", vhr->ldap_filter, hostname, hostname);
+
 	VH_AP_LOG_RERROR(APLOG_MARK, APLOG_DEBUG, 0, r, "getldaphome(): filtbuf = %s",filtbuf);
 	result = util_ldap_cache_getuserdn(r, ldc, vhr->ldap_url, vhr->ldap_basedn, vhr->ldap_scope, ldap_attributes, filtbuf, &dn, &vals);
 	util_ldap_connection_close(ldc);

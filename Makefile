@@ -6,7 +6,8 @@
 ## Have a look in this file the compilation / configuration options.
 ##
 
-APXS = apxs
+#APXS = apxs
+APXS = /usr/local/httpd-2.2.24/bin/apxs
 
 NAME = mod_vhostx
 SRCS = mod_vhostx.c
