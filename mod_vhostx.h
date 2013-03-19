@@ -16,19 +16,16 @@
 /* We need this to be able to set the docroot (ap_document_root) */
 #define CORE_PRIVATE
 
-#define APR_WANT_STRFUNC
-#include "apr_want.h"
 
 #include "apr.h"
 #include "apr_strings.h"
 #include "apr_lib.h"
 #include "apr_uri.h"
-#include "apr_thread_mutex.h"
-#if APR_MAJOR_VERSION > 0
-#include "apr_regexp.h"
-#endif
 
 #include "ap_config.h"
+#include "ap_config_auto.h"
+#include "ap_regex.h"
+
 #include "httpd.h"
 #include "http_config.h"
 #include "http_core.h"
@@ -42,8 +39,6 @@
 #include "apr_strings.h"
 #include "apr_reslist.h"
 #include "mpm_common.h"
-
-#include "ap_config_auto.h"
 
 #include <stdlib.h>
 #include <stdio.h>

@@ -57,7 +57,8 @@
 static char * trimwhitespace(char *str);
 static int getldaphome(request_rec *r, vhx_config_rec *vhr, const char *hostname, vhx_request_t *reqc);
 
-// Why does this need 9 elements? Any less and we get a segfault!
+// Why does this need >=9 elements? Any less and we get a segfault!
+//char * ldap_attributes[] = { "apacheServerName", "apacheDocumentRoot", "apacheServerAdmin","phpOptions","apacheChrootDir","homeDirectory","uidNumber","gidNumber" };
 char * ldap_attributes[] = { "apacheServerName", "apacheDocumentRoot", "apacheServerAdmin","phpOptions","apacheChrootDir","homeDirectory","uidNumber","gidNumber","blah" };
 
 static APR_OPTIONAL_FN_TYPE(uldap_connection_close)  *util_ldap_connection_close;
@@ -96,9 +97,7 @@ static void * vhx_create_server_config(apr_pool_t * p, server_rec * s) {
 	 * Pre default the module is not enabled
 	 */
 	vhr->enable 		= 0;
-
-	vhr->ldap_binddn	= NULL;
-	vhr->ldap_bindpw	= NULL;
+	
 	vhr->ldap_have_url	= 0;
 	vhr->ldap_have_deref	= 0;
 	vhr->ldap_deref		= always;
@@ -280,7 +279,7 @@ static const char *vhx_ldap_parse_url(cmd_parms *cmd, void *dummy, const char *u
 	else {
 		vhr->ldap_host = urld->lud_host? apr_pstrdup(cmd->pool, urld->lud_host) : "localhost";
 	}
-	vhr->ldap_basedn = urld->lud_dn? apr_pstrdup(cmd->pool, urld->lud_dn) : "";
+	vhr->ldap_basedn = urld->lud_dn ? apr_pstrdup(cmd->pool, urld->lud_dn) : NULL;
 
 	vhr->ldap_scope = urld->lud_scope == LDAP_SCOPE_ONELEVEL ? LDAP_SCOPE_ONELEVEL : LDAP_SCOPE_SUBTREE;
 
@@ -561,7 +560,7 @@ static int vhx_itk_post_read(request_rec *r)
 					cfg->gid = libhome_gid;
 
 					/* set the username - otherwise MPM-ITK will not work */
-					itk_username = apr_psprintf(r->pool, "%s", pw->pw_name); 
+					itk_username = apr_pstrdup(r->pool, pw->pw_name); 
 					cfg->username = itk_username;
 
 					//chroot
@@ -740,16 +739,11 @@ start_over:
 		return DECLINED;
 	}
 
-	/*
-	if (vhr->ldap_set_filter) {
-		apr_snprintf(filtbuf, FILTER_LENGTH, "%s=%s", vhr->ldap_filter, hostname);
-	} else {
-		apr_snprintf(filtbuf, FILTER_LENGTH, "(&(%s)(|(apacheServerName=%s)(apacheServerAlias=%s)))", vhr->ldap_filter, hostname, hostname);
-	}*/
-
 	filtbuf = apr_psprintf(r->pool, "(&(%s)(|(apacheServerName=%s)(apacheServerAlias=%s)))", vhr->ldap_filter, hostname, hostname);
 
 	VH_AP_LOG_RERROR(APLOG_MARK, APLOG_DEBUG, 0, r, "getldaphome(): filtbuf = %s",filtbuf);
+	//VH_AP_LOG_RERROR(APLOG_MARK, APLOG_DEBUG, 0, r, "getldaphome(): %s %s %d %s %s",vhr->ldap_url,vhr->ldap_basedn,vhr->ldap_scope,ldap_attributes[0],filtbuf);
+
 	result = util_ldap_cache_getuserdn(r, ldc, vhr->ldap_url, vhr->ldap_basedn, vhr->ldap_scope, ldap_attributes, filtbuf, &dn, &vals);
 	util_ldap_connection_close(ldc);
 
