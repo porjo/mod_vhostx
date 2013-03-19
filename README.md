@@ -25,7 +25,7 @@ Installation
 ------------
 Install any of the optional components as required: `mod_php`, `mpm-itk` etc
 
-* Download and unpack the `mod_vhostx` zip file from Github
+* Download and unpack the mod_vhostx zip file from Github
 * As root user, run `make` followed by `make install` (some modification of `Makefile` may be required depending on your environment).
 * Update Apache `httpd.conf` configuration as described below
 * Restart Apache
@@ -33,18 +33,17 @@ Install any of the optional components as required: `mod_php`, `mpm-itk` etc
 
 Configuration
 -------------
-The following configuration directives can be used inside `<Virtualhost>` `</Virtualhost>` context
+The following configuration directives can be used inside `<Virtualhost />` context
 
 Key | Values | Default | Description
 :--- | :---: | :---: | :---
 `EnableVhx`     | `on`,`off` | `off`   | Enable virtualhost lookups
-`vhx_PathPrefix`| e.g _/home/web_     | - | Prepend this path to DocumentRoot
+`vhx_PathPrefix`| e.g _/home/web_     | - | Prepend this path to DocumentRoot (ignored when chroot enabled)
 `vhx_NotFoundRedirect` | e.g. [http://t.co/404.html](http://t.co/404.html) | - | If a host is not found in the database redirect to this URL
 `vhx_WWWMode` | `on`,`off` | `off` | If a host is not found, prepend 'www.' to the hostname and try again
 `vhx_PHPOpenBasedir` | `on`,`off` | `off` | Set PHP `open_basedir` to include DocumentRoot path
 `vhx_PHPOptFromDb` | `on`,`off` | `off` | Set PHP `ini` values from database. A list of valid options can be found [here](http://www.php.net/manual/en/ini.list.php)
-`vhx_PHPDisplayErrors` | `on`,`off` | `off` | Output PHP errors to browser.
-`vhx_PHPOpenBasedirCommon` | e.g. _/tmp_ | - | Append this path to `open_basedir`. Common to all virtualhosts
+`vhx_PHPOpenBasedirCommon` | e.g. _/tmp_ | - | Append this path to `open_basedir`
 `vhx_ITKEnable` | `on`, `off` | `off` | Enable mpm-itk support 
 `vhx_ChrootEnable` | `on`, `off` | `off` | Enable chroot of Apache process using path from database (requires mpm-itk)
 `vhx_LDAPBindDN` |  | - | Bind DN for LDAP user
@@ -62,7 +61,7 @@ LoadModule vhostx_module    modules/mod_vhostx.so
  <IfModule vhostx_module>
    EnableVhx On
    vhx_WWWMode On
-   vhx_LDAPUrl "ldap://127.0.0.1/ou=Vhosts,ou=Web,dc=foobar???(&(apacheVhostEnabled=yes)(objectClass=apacheConfig))"
+   vhx_LDAPUrl "ldap://127.0.0.1/ou=Vhosts,ou=Web,dc=foobar???(&(apacheVhostEnabled=yes)(objectClass=vhostx))"
    vhx_LDAPBindDN "cn=admin,dc=foobar"
    vhx_LDAPBindPassword "xxxxyyyy"
    vhx_PHPOptFromDb On
@@ -93,4 +92,4 @@ Credits
 --------
 The code is a fork of Xavier Beaudouin's [mod_vhs](http://openvisp.fr/doku/doku.php?id=mod_vhs:intro). mod_vhs provides more options than I required, so I've stripped out a lot of unneeded code in an effort keep it clean and maintainable.
 
-`vhx_PHPOptFromDb` code from Cosmomill's mod_vhs [fork](https://bitbucket.org/cosmomill/mod_vhs) and Igor Popov's [mod_myvhost](http://code.google.com/p/mod-myvhost/)
+`vhx_PHPOptFromDb` code from Cosmomill's [mod_vhs fork](https://bitbucket.org/cosmomill/mod_vhs) and Igor Popov's [mod_myvhost](http://code.google.com/p/mod-myvhost/)
