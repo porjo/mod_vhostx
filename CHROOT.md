@@ -7,7 +7,7 @@ The usual caveats apply when running a process in a chrooted environment. Here a
 PHP
 ---
 
-`mail()` function does not work as it depends on the `sendmail` binary being inside the chroot. A quick search on Google shows ways several ways around this.
+`mail()` function does not work as it depends on the `sendmail` binary being inside the chroot. A quick search on Google shows several ways around this.
 
 Connecting to localhost MySQL/PostgreSQL should be done via TCP rather than Unix socket
 
