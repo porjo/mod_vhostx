@@ -93,3 +93,5 @@ Credits
 The code is a fork of Xavier Beaudouin's [mod_vhs](http://openvisp.fr/doku/doku.php?id=mod_vhs:intro). mod_vhs provides more options than I required, so I've stripped out a lot of unneeded code in an effort keep it clean and maintainable.
 
 `vhx_PHPOptFromDb` code from Cosmomill's [mod_vhs fork](https://bitbucket.org/cosmomill/mod_vhs) and Igor Popov's [mod_myvhost](http://code.google.com/p/mod-myvhost/)
+
+See also the [THANKS](https://github.com/porjo/mod_vhostx/blob/master/THANKS) file
